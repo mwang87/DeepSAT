@@ -154,26 +154,8 @@ def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates
 
     return topK
 
-def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
-    mat = CSV_converter(input_nmr_filename,channel)
-    # Searching the molecules and drawing the HSQC spectra image with classificaiton results.
-    # plotting and saving constructed HSQC images with predicted class
-    ## image without padding and margin
 
-
-    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_nmr(input_nmr_filename, channel, model)
-    
-    topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
-
-    #Saving TopK
-    topK.to_csv(output_table, index = None)
-    
-    #Saving the predicted Fingerprint
-    open(output_pred_fingerprint, "w").write(json.dumps(fingerprint_prediction.tolist()))
-
-    
-    #Drawing constructed HSQC spectra
-    #remove outline
+def _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob, pred_gly):
     mat[:,0,:] = 0
     mat[:,127,:] = 0
     mat[0,:,:] = 0
@@ -204,6 +186,28 @@ def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_
     #plt.subplots_adjust(left = 0, bottom = 0, right = 1, top = 1, hspace = 0, wspace = 0)
     plt.savefig(output_nmr_image, dpi=600)
     plt.close()
+
+
+def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
+    mat = CSV_converter(input_nmr_filename,channel)
+    # Searching the molecules and drawing the HSQC spectra image with classificaiton results.
+    # plotting and saving constructed HSQC images with predicted class
+    ## image without padding and margin
+
+
+    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_nmr(input_nmr_filename, channel, model)
+    
+    topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
+
+    #Saving TopK
+    topK.to_csv(output_table, index = None)
+    
+    #Saving the predicted Fingerprint
+    open(output_pred_fingerprint, "w").write(json.dumps(fingerprint_prediction.tolist()))
+    
+    #Drawing constructed HSQC spectra
+    #remove outline
+    _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob, pred_gly)
 
 
 def main():

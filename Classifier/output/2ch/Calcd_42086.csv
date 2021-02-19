@@ -1,0 +1,21 @@
+Name,SMILES,Cosine score,MW
+"['7-O-Alpha-D-Glucopyranosyl-Alpha-Homonojirimycin', '104343-33-1', '7-O-B-D-Glucopyranosyl-A-Homonojirimycin']",OCC1NC(COC2OC(CO)C(O)C(O)C2O)C(O)C(O)C1O,0.9561828874675149,355
+['1-O-beta-D-glucopyranosyladenophorine'],CCC1NC(COC2OC(CO)C(O)C(O)C2O)C(O)C(O)C1O,0.8775147014620616,353
+['156714-96-4'],OCC1OC(OCC2NCC(O)C(O)C2O)C(O)C(O)C1O,0.8718572905786446,325
+"['3-O-beta-D-glucopyranosyl-2R,5R-dihydroxymethyl-3R,4R-dihydroxypyrrolidine', '2,5-dideoxy-2,5-imino-(3-O-beta-D-glucopyranosyl)-D-mannitol']",OCC1NC(CO)C(OC2OC(CO)C(O)C(O)C2O)C1O,0.8665407417674353,325
+['5-O-alpha-D-galactopyranosyl-alpha-homonojirimycin'],OCC1NC(CO)C(OC2OC(CO)C(O)C(O)C2O)C(O)C1O,0.8665407417674353,355
+['N-Methyl-7-O-Beta-D-Glucopyranosyl-Alpha-Homonojirimycin'],CN1C(CO)C(O)C(O)C(O)C1COC1OC(CO)C(O)C(O)C1O,0.8544206939337449,369
+"['6-O-alpha-D-Galactopyranosyl-D-galactose', '(3R,4S,5S,6R)-6-[[(2S,3R,4S,5S,6R)-3,4,5-Trihydroxy-6-(Hydroxymethyl)Oxan-2-Yl]Oxymethyl]Oxane-2,3,4,5-Tetrol', 'Melibiose', '82729-73-5', '6-O-alpha-D-Glucopyranosyl-D-mannose', '(2R,3R,4S,5S,6R)-6-[[(2R,3R,4S,5S,6R)-3,4,5-Trihydroxy-6-(Hydroxymethyl)Oxan-2-Yl]Oxymethyl]Oxane-2,3,4,5-Tetrol']",OCC1OC(OCC2OC(O)C(O)C(O)C2O)C(O)C(O)C1O,0.8534918135881966,342
+"['1-O-beta-D-glucopyranosyladenophorine', '1-O-beta-D-glucopyranosyl-5-deoxyadenophorine']",CCC1CC(O)C(O)C(COC2OC(CO)C(O)C(O)C2O)N1,0.8455943246644704,337
+"['6-O-beta-D-glucopyranosyl-1,2,3-trideoxy-1-C-ethyl-beta-galactonojirimycin']",CCC1CCC(O)C(COC2OC(CO)C(O)C(O)C2O)N1,0.8455943246644704,321
+"['Me glycoside-6-O-beta-D-Mannopyranosyl-D-mannose', 'Me glycoside-6-O-alpha-D-Mannopyranosyl-D-mannose']",COC1OC(COC2OC(CO)C(O)C(O)C2O)C(O)C(O)C1O,0.8391463916782737,356
+"['4-O-beta-D-glucopyranosyl-1-deoxymannojirimycin', '865486-89-1']",OCC1NCC(O)C(O)C1OC1OC(CO)C(O)C(O)C1O,0.813733471206735,325
+"['2-O-beta-D-glucopyranosyl-1-deoxymannojirimycin', '2-O-alpha-D-galactopyranosyl-1-deoxymannojirimycin', '3-O-beta-D-glucopyranosyl-1-deoxymannojirimycin']",OCC1NCC(OC2OC(CO)C(O)C(O)C2O)C(O)C1O,0.813733471206735,325
+"['pungen B', '1-O-alpha-L-arabinofuranosyl-(1->6)-beta-D-galactopyranosyl isopropyl alcohol']",CC(C)OC1OC(COC2OC(CO)C(O)C2O)C(O)C(O)C1O,0.8124999999999998,354
+"['2-O-beta-D-glucopyranosyl-1-deoxymannojirimycin', '143900-42-9']",OCC1NCC(O)C(OC2OC(CO)C(O)C(O)C2O)C1O,0.8029550685469661,325
+['N-Butyl-7-O-Beta-D-Glucopyranosyl-Alpha-Homonojirimycin'],CCCCN1C(CO)C(O)C(O)C(O)C1COC1OC(CO)C(O)C(O)C1O,0.8006285640426374,411
+"['(2R,3S,4S,5S,6R)-2-[(2R,3R,4R,5R)-4-Hydroxy-2-(2-Hydroxyethyl)-5-(Hydroxymethyl)Pyrrolidin-3-Yl]Oxy-6-(Hydroxymethyl)Oxane-3,4,5-Triol']",OCCC1NC(CO)C(O)C1OC1OC(CO)C(O)C(O)C1O,0.8006285640426374,339
+['alpha-L-Araf-(1 -> 4)-beta-D-Galp-(1 -> 6)-alphabeta-D-Galp'],OCC1OC(OC2C(CO)OC(OCC3OC(O)C(O)C(O)C3O)C(O)C2O)C(O)C1O,0.8000946913656627,474
+['No_name'],OCC1OC(OCC2OC(O)C(O)C(OC3OC(CO)C(O)C(O)C3O)C2O)C(O)C1O,0.8000946913656627,474
+"['99-20-7', 'Trehalose']",OCC1OC(OC2OC(CO)C(O)C(O)C2O)C(O)C(O)C1O,0.7973815320737669,342
+"['(2R,3S,4S,5R,6R)-2-(Hydroxymethyl)-6-[(2R,3R,4S,5S,6R)-3,4,5-Trihydroxy-6-(Hydroxymethyl)Oxan-2-Yl]Oxyoxane-3,4,5-Triol;Dihydrate']",O.O.OCC1OC(OC2OC(CO)C(O)C(O)C2O)C(O)C(O)C1O,0.7824758900557374,378

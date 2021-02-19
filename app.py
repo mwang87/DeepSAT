@@ -111,7 +111,15 @@ def handle_query(query_text):
     headers = {"content-type": "application/json"}
     json_response = requests.post(pred_url, data=payload, headers=headers)
 
-    return [str(json_response.json()), dash.no_update]
+    prediction_dict = json.loads(json_response.text)['predictions'][0]
+
+    # TODO: Will update names when hyunwoo updates model
+    fingerprint_prediction = np.asarray(prediction_dict["dense"])
+    pred_MW = np.asarray(prediction_dict["dense"])
+    pred_class = np.asarray(prediction_dict["dense_1"])
+    pred_gly = np.asarray(prediction_dict["glycoside"])
+
+    return [[str(pred_MW), str(pred_class), str(pred_gly)], dash.no_update]
 
     isglycoside, class_results, superclass_results, pathway_results, path_from_class, path_from_superclass, n_path, fp1, fp2 = classify_structure(smiles_string)
 

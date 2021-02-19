@@ -17,6 +17,10 @@ import numpy as np
 import urllib.parse
 
 import sys
+sys.path.insert(0, "Classifier")
+import SMART_3
+import get_highlight
+
 
 server = Flask(__name__)
 app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -47,7 +51,7 @@ DASHBOARD = [
         [
             html.Div(id='version', children="Version - 0.1"),
             html.Br(),
-            dbc.Textarea(className="mb-3", id='smiles_string', placeholder="Smiles Structure"),
+            dbc.Textarea(className="mb-3", id='query_text', placeholder="NMR Spectrum", rows="20"),
             dcc.Loading(
                 id="structure",
                 children=[html.Div([html.Div(id="loading-output-5")])],
@@ -73,21 +77,32 @@ app.layout = html.Div(children=[NAVBAR, BODY])
 
 
 # This enables parsing the URL to shove a task into the qemistree id
-@app.callback(Output('smiles_string', 'value'),
+@app.callback(Output('query_text', 'value'),
               [Input('url', 'pathname')])
 def display_page(pathname):
     # Otherwise, lets use the url
     if len(pathname) > 1:
         return pathname[1:]
     else:
-        return "CC1C(O)CC2C1C(OC1OC(COC(C)=O)C(O)C(O)C1O)OC=C2C(O)=O"
+        return dash.no_update
 
 # This function will rerun at any 
 @app.callback(
     [Output('classification_table', 'children'), Output('structure', 'children')],
-    [Input('smiles_string', 'value')],
+    [Input('query_text', 'value')],
 )
-def handle_smiles(smiles_string):
+def handle_query(query_text):
+    # Saving input to a file to be read
+    from io import StringIO
+    data = StringIO(query_text)
+    nmr_data_df = pd.DataFrame(data, sep="\t")
+    SMART_3._convert_data(nmr_data_df, "1")
+
+    print(nmr_data_df)
+    
+
+    return [dash.no_update, dash.no_update]
+
     isglycoside, class_results, superclass_results, pathway_results, path_from_class, path_from_superclass, n_path, fp1, fp2 = classify_structure(smiles_string)
 
     output_list = []

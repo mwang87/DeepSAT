@@ -69,6 +69,9 @@ def CSV_converter(CSV_converter, channel):
     elif ext == '.tsv': #for TSV
         qc = pd.read_csv(CSV_converter, sep="\t")
     
+    return _convert_data(qc, channel)
+
+def _convert_data(qc, channel):
     qc = qc.dropna() #removing nan, none from the data
     H = (qc['1H']*scale//12).astype(int) #scaling for proton, 0~12 ppm
     C = (qc['13C']*scale//240).astype(int) #scaling for carbon, 0~240 ppm
@@ -94,6 +97,7 @@ def CSV_converter(CSV_converter, channel):
     mat[0,:,:] = 1
     mat[127,:,:] = 1            
     return mat #it should be 128x128x1 for normal HSQC data, and 128x128x2 for edited HSQC data
+
 
 #prediction function with two models
 def predict_nmr(input_nmr_filename, channel, model): #filenamae, channel(normal/edited HSQC, 1/2)

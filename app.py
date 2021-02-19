@@ -225,8 +225,8 @@ def classify_structure(smiles):
 def metadata():
     """Serve a file from the upload directory."""
     all_metadata = {}
-    pathway_metadata = json.loads(requests.get("http://smart3-tf-server:8501/v1/models/PATHWAY/metadata").text)
-    class_metadata = json.loads(requests.get("http://smart3-tf-server:8501/v1/models/CLASS/metadata").text)
+    pathway_metadata = json.loads(requests.get("http://smart3-tf-server:8501/v1/models/CHANNEL1/metadata").text)
+    class_metadata = json.loads(requests.get("http://smart3-tf-server:8501/v1/models/CHANNEL2/metadata").text)
 
     all_metadata["pathway"] = pathway_metadata
     all_metadata["class"] = class_metadata

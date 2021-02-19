@@ -103,6 +103,11 @@ def predict_nmr(input_nmr_filename, channel, model): #filenamae, channel(normal/
     ### Model Prediction
     ## Fingerprint and molecular weight prediction
     fingerprint_prediction, pred_MW, pred_class, pred_gly  = model.predict(mat.reshape(1,scale,scale,channel))
+
+    return fingerprint_prediction, pred_MW, pred_class, pred_gly
+
+# This takes the output of prediction from the keras model and post processes it
+def refine_predict_nmr(fingerprint_prediction, pred_MW, pred_class, pred_gly):
     fingerprint_prediction = fingerprint_prediction[0].round() 
     fingerprint_prediction = np.where(fingerprint_prediction == 1)[0] #list of fingerprint
     pred_MW = pred_MW[0][0] # molecular weight
@@ -194,9 +199,11 @@ def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_
     # plotting and saving constructed HSQC images with predicted class
     ## image without padding and margin
 
+    # This is the only time we need to call the model
+    fingerprint_prediction, pred_MW, pred_class, pred_gly = predict_nmr(input_nmr_filename, channel, model)
 
-    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_nmr(input_nmr_filename, channel, model)
-    
+    fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = refine_predict_nmr(fingerprint_prediction, pred_MW, pred_class, pred_gly)
+
     topK = search_database(fingerprint_prediction, pred_MW, DB, mw=mw, top_candidates=top_candidates)
 
     #Saving TopK

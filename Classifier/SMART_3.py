@@ -71,6 +71,7 @@ def CSV_converter(CSV_converter, channel):
     
     return _convert_data(qc, channel)
 
+# This gives a matrix that has been reshaped
 def _convert_data(qc, channel):
     qc = qc.dropna() #removing nan, none from the data
     H = (qc['1H']*scale//12).astype(int) #scaling for proton, 0~12 ppm
@@ -235,9 +236,9 @@ def main():
     args = parser.parse_args()
     
     if args.channel == 1:
-        search_CSV(args.input_csv, DB, model_1ch, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
+        search_CSV(args.input_csv, DB, model_1ch, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight, channel=args.channel)
     elif args.channel == 2:
-        search_CSV(args.input_csv, DB, model_2ch, channel = args.channel, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight)
+        search_CSV(args.input_csv, DB, model_2ch, args.output_table, args.output_nmr_image, args.output_pred_fingerprint, mw=args.molecular_weight, channel=args.channel)
 
 
 

@@ -95,13 +95,12 @@ def handle_query(query_text):
     # Saving input to a file to be read
     from io import StringIO
     data = StringIO(query_text)
-    nmr_data_df = pd.DataFrame(data, sep="\t")
-    SMART_3._convert_data(nmr_data_df, "1")
+    nmr_data_df = pd.read_csv(data, sep=",")
+    nmr_mat = SMART_3._convert_data(nmr_data_df, 1)
 
-    print(nmr_data_df)
-    
+    print(nmr_data_df, file=sys.stderr)
 
-    return [dash.no_update, dash.no_update]
+    return [len(nmr_data_df), dash.no_update]
 
     isglycoside, class_results, superclass_results, pathway_results, path_from_class, path_from_superclass, n_path, fp1, fp2 = classify_structure(smiles_string)
 

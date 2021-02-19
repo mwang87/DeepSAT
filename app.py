@@ -98,9 +98,20 @@ def handle_query(query_text):
     nmr_data_df = pd.read_csv(data, sep=",")
     nmr_mat = SMART_3._convert_data(nmr_data_df, 1)
 
-    print(nmr_data_df, file=sys.stderr)
+    print(nmr_mat, file=sys.stderr)
 
-    return [len(nmr_data_df), dash.no_update]
+    # Running prediction here
+    query_dict = {}
+    query_dict["input_1"] = nmr_mat.tolist()
+
+    # # Handling SUPERCLASS
+    pred_url = "http://smart3-tf-server:8501/v1/models/CHANNEL1:predict"
+    payload = json.dumps({"instances": [ query_dict ]})
+
+    headers = {"content-type": "application/json"}
+    json_response = requests.post(pred_url, data=payload, headers=headers)
+
+    return [str(json_response.json()), dash.no_update]
 
     isglycoside, class_results, superclass_results, pathway_results, path_from_class, path_from_superclass, n_path, fp1, fp2 = classify_structure(smiles_string)
 

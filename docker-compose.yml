@@ -1,0 +1,38 @@
+version: '3'
+services:
+  smart3-dash:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smart3-dash
+    volumes:
+      - ./output:/app/output:rw
+      - ./logs:/app/logs:rw
+      - ./data:/data:rw
+    ports:
+    - "4857:5000"
+    networks:
+      - default
+      - nginx-net
+    environment:
+      VIRTUAL_HOST: smart3.ucsd.edu
+      VIRTUAL_PORT: 4857
+      LETSENCRYPT_HOST: smart3.ucsd.edu
+      LETSENCRYPT_EMAIL: miw023@ucsd.edu
+    restart: on-failure
+    command: /app/run_server.sh
+  
+  smart3-tf-server:
+    image: tensorflow/serving:2.3.0
+    volumes:
+        - ./Classifier/models_folder/models:/models
+        - ./Classifier/models_folder/models.config:/models/models.config
+    restart: on-failure
+    networks:
+      - default
+    command: --model_config_file=/models/models.config
+
+networks:
+  nginx-net:
+    external:
+      name: nginx-net

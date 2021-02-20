@@ -45,10 +45,11 @@ def load_models(models_folder="models"):
     return model_1ch, model_2ch 
 
 def load_db(db_folder="."):
+    db_path = os.path.join(db_folder, 'DB_010621_SM3.json')
+    db_df = pd.read_json(db_path)
     #loading DB
-    
-    DB =np.array(pd.read_json('DB_010621_SM3.json'))
-    with open('superclass.json','r') as r:
+    DB = np.array(db_df)
+    with open(os.path.join(db_folder, 'superclass.json'),'r') as r:
         index_super = json.load(r)
     return DB, index_super
 
@@ -165,7 +166,7 @@ def search_database(fingerprint_prediction, pred_MW, DB, mw=None, top_candidates
     return topK
 
 
-def _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob, pred_gly):
+def _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob, pred_gly, index_super=None):
     mat[:,0,:] = 0
     mat[:,127,:] = 0
     mat[0,:,:] = 0
@@ -198,7 +199,7 @@ def _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob,
     plt.close()
 
 
-def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
+def search_CSV(input_nmr_filename, DB, index_super, model, channel, output_table, output_nmr_image, output_pred_fingerprint, mw=None, top_candidates=20): # i = CSV file name
     mat = CSV_converter(input_nmr_filename,channel)
     # Searching the molecules and drawing the HSQC spectra image with classificaiton results.
     # plotting and saving constructed HSQC images with predicted class
@@ -219,7 +220,7 @@ def search_CSV(input_nmr_filename, DB, model, channel, output_table, output_nmr_
     
     #Drawing constructed HSQC spectra
     #remove outline
-    _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob, pred_gly)
+    _draw_search_image(output_nmr_image, mat, pred_class_index, pred_class_prob, pred_gly, index_super=index_super)
 
 
 def main():

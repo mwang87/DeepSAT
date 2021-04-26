@@ -99,7 +99,7 @@ def handle_query(query_text):
     # Saving input to a file to be read
     from io import StringIO
     data = StringIO(query_text)
-    nmr_data_df = pd.read_csv(data, sep=",")
+    nmr_data_df = pd.read_csv(data, sep=None)
     nmr_mat = SMART_3._convert_data(nmr_data_df, 1)
 
     print(nmr_mat, file=sys.stderr)

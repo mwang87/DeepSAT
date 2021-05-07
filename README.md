@@ -1,10 +1,4 @@
-## NP Classifier
-
-![production-integration](https://github.com/mwang87/NP-Classifier/workflows/production-integration/badge.svg)
-
-We typitcally will deploy this locally. To bring everything up
-
-```server-compose```
+## SMART 3
 
 ### Checking Model Metadata
 
@@ -18,9 +12,9 @@ If the model input names change, then we need to change it in the code
 
 Classify programmatically 
 
-```/classify?smiles=<>```
+```/api/smart3/search```
 
-You can also provide cached flag to the params to get the cached version so make it faster
+You can put in your peaks as a json list of dicts, with 1H,13C as headers. 
 
 ## License
 

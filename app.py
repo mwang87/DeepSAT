@@ -123,11 +123,12 @@ def handle_query(query_text, channel):
         result_dict["Name"] = "\n".join(all_names_list)
 
     top_search_results_df = pd.DataFrame(results_list)
-    top_search_results_df = top_search_results_df[["Name", "MW", "Cosine score"]]
+    top_search_results_df['structure'] = top_search_results_df["SMILES"].apply(lambda x: '![Drag Racing]("https://gnps-structure.ucsd.edu/structureimg?smiles={}")'.format(x))
+    top_search_results_df = top_search_results_df[["Name", "MW", "Cosine score", "structure"]]
 
     table_fig = dash_table.DataTable(
         columns=[
-            {"name": i, "id": i, "deletable": False, "selectable": True} for i in top_search_results_df.columns
+            {"name": i, "id": i, "deletable": False, "selectable": True, 'presentation':'markdown'} for i in top_search_results_df.columns
         ],
         data=top_search_results_df.to_dict(orient="records"),
         editable=False,

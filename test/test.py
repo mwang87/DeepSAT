@@ -22,6 +22,7 @@ def test_api2():
     peaks_df = pd.read_csv("./Calcd_42086.csv", sep=None)
     data = {}
     data["peaks"] = json.dumps(peaks_df.to_dict(orient="records"))
+    data["channel"] = 2
     r = requests.post(url, data=data)
     
     r.raise_for_status()

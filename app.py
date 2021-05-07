@@ -155,7 +155,8 @@ def download(uuid_save):
 @server.route('/api/smart3/search', methods=['POST', 'GET'])
 def apismart3search():
     nmr_data_df = pd.DataFrame(json.loads(request.values["peaks"]))
-    topK = smart3wrapper.search_smart3(nmr_data_df)
+    channel = int(request.values.get("channel", 1))
+    topK = smart3wrapper.search_smart3(nmr_data_df, channel=channel)
 
     return json.dumps(topK.to_dict(orient="records"))
 

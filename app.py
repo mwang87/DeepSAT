@@ -107,7 +107,7 @@ def handle_query(query_text):
         result_dict["Name"] = "\n".join(all_names_list)
 
     top_search_results_df = pd.DataFrame(results_list)
-    top_search_results_df = top_search_results_df[["Name", "MW"]]
+    top_search_results_df = top_search_results_df[["Name", "MW", "Cosine score"]]
 
     table_fig = dash_table.DataTable(
         columns=[

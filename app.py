@@ -17,6 +17,7 @@ import numpy as np
 import urllib.parse
 import uuid
 from flask import send_from_directory
+import urllib.parse
 
 import smart3wrapper
 
@@ -123,7 +124,7 @@ def handle_query(query_text, channel):
         result_dict["Name"] = "\n".join(all_names_list)
 
     top_search_results_df = pd.DataFrame(results_list)
-    top_search_results_df['structure'] = top_search_results_df["SMILES"].apply(lambda x: '![Drag Racing]("https://gnps-structure.ucsd.edu/structureimg?smiles={}")'.format(x))
+    top_search_results_df['structure'] = top_search_results_df["SMILES"].apply(lambda x: '![SMILES](https://gnps-structure.ucsd.edu/structureimg?smiles={})'.format(urllib.parse.quote(x)))
     top_search_results_df = top_search_results_df[["Name", "MW", "Cosine score", "structure"]]
 
     table_fig = dash_table.DataTable(

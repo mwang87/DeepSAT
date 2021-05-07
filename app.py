@@ -98,13 +98,22 @@ def handle_query(query_text):
 
     # Drawing image
     output_nmr_image = os.path.join("output", str(uuid.uuid4()) + ".png")
-    topK = smart3wrapper.search_smart3(nmr_data_df, output_image=output_nmr_image)    
+    top_search_results_df = smart3wrapper.search_smart3(nmr_data_df, output_image=output_nmr_image)
+
+    # Reformatting the results
+    results_list = top_search_results_df.to_dict(orient="records")
+    for result_dict in results_list:
+        all_names_list = [name[:20] for name in result_dict["Name"]]
+        result_dict["Name"] = "\n".join(all_names_list)
+
+    top_search_results_df = pd.DataFrame(results_list)
+    top_search_results_df = top_search_results_df[["Name", "MW"]]
 
     table_fig = dash_table.DataTable(
         columns=[
-            {"name": i, "id": i, "deletable": False, "selectable": True} for i in topK.columns
+            {"name": i, "id": i, "deletable": False, "selectable": True} for i in top_search_results_df.columns
         ],
-        data=topK.to_dict(orient="records"),
+        data=top_search_results_df.to_dict(orient="records"),
         editable=False,
         filter_action="native",
         sort_action="native",
@@ -115,6 +124,9 @@ def handle_query(query_text):
         page_action="native",
         page_current= 0,
         page_size= 10,
+        style_cell={
+            'whiteSpace': 'pre-line' #to allow breaks to new line, https://community.plotly.com/t/creating-new-line-within-datatable-cell/44145/2
+        }
     )
 
     return [table_fig, [html.Img(src="/plot/{}".format(os.path.basename(output_nmr_image)), width="1200px")]]

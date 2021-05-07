@@ -12,20 +12,24 @@ import get_highlight
 # Loading database into memory
 DB, index_super = SMART_3.load_db(db_folder="./Classifier")
 
-def search_smart3(nmr_data_df, output_image=None):
-    nmr_mat = SMART_3._convert_data(nmr_data_df, 1)
+def search_smart3(nmr_data_df, output_image=None, channel=1):
+    nmr_mat = SMART_3._convert_data(nmr_data_df, channel)
 
     # Running prediction here
     query_dict = {}
     query_dict["input_1"] = nmr_mat.tolist()
 
     # # Handling SUPERCLASS
-    pred_url = "http://smart3-tf-server:8501/v1/models/CHANNEL1:predict"
+    if channel == 1:
+        pred_url = "http://smart3-tf-server:8501/v1/models/CHANNEL1:predict"
+    else:
+        pred_url = "http://smart3-tf-server:8501/v1/models/CHANNEL2:predict"
+    
     payload = json.dumps({"instances": [ query_dict ]})
 
     headers = {"content-type": "application/json"}
     json_response = requests.post(pred_url, data=payload, headers=headers)
-
+    
     prediction_dict = json.loads(json_response.text)['predictions'][0]
 
     # TODO: Will update names when hyunwoo updates model

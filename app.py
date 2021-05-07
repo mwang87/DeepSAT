@@ -49,7 +49,23 @@ DASHBOARD = [
         [
             html.Div(id='version', children="Version - 0.1"),
             html.Br(),
+            html.H5("NMR Peaks Entry"),
             dbc.Textarea(className="mb-3", id='query_text', placeholder="NMR Spectrum", rows="20"),
+            html.Br(),
+            dbc.InputGroup(
+                [
+                    dbc.InputGroupAddon("Channels", addon_type="prepend"),
+                    dbc.Select(
+                        id="channel",
+                        options=[
+                            {"label": "Normal HSQC", "value": "1"},
+                            {"label": "Edited HSQC", "value": "2"},
+                        ],
+                        value="1"
+                    )
+                ],
+                className="mb-3",
+            ),
             html.Hr(),
             dcc.Loading(
                 id="structure",
@@ -88,9 +104,9 @@ def display_page(pathname):
 # This function will rerun at any 
 @app.callback(
     [Output('classification_table', 'children'), Output('structure', 'children')],
-    [Input('query_text', 'value')],
+    [Input('query_text', 'value'), Input('channel', 'value')],
 )
-def handle_query(query_text):
+def handle_query(query_text, channel):
     # Saving input to a file to be read
     from io import StringIO
     data = StringIO(query_text)
@@ -98,7 +114,7 @@ def handle_query(query_text):
 
     # Drawing image
     output_nmr_image = os.path.join("output", str(uuid.uuid4()) + ".png")
-    top_search_results_df = smart3wrapper.search_smart3(nmr_data_df, output_image=output_nmr_image)
+    top_search_results_df = smart3wrapper.search_smart3(nmr_data_df, output_image=output_nmr_image, channel=int(channel))
 
     # Reformatting the results
     results_list = top_search_results_df.to_dict(orient="records")

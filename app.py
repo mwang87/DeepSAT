@@ -65,7 +65,7 @@ INPUT_DASHBOARD = [
             )
     ])),
     dbc.CardBody([
-        html.Div(id='version', children="Version - 0.1"),
+        html.Div(id='version', children="Version - 0.2"),
         html.Br(),
         html.H5("SMART NMR 3 Peaks Entry"),
         dbc.Textarea(className="mb-3", id='query_text', placeholder="NMR Spectrum", rows="20"),

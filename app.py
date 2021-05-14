@@ -67,6 +67,13 @@ DASHBOARD = [
                 ],
                 className="mb-3",
             ),
+            dbc.InputGroup(
+                [
+                    dbc.InputGroupAddon("Molecular Weight (Optional)", addon_type="prepend"),
+                    dbc.Input(id="mw_filter", placeholder="MW Filter", type="number"),
+                ],
+                className="mb-3",
+            ),
             html.Hr(),
             dcc.Loading(
                 id="structure",
@@ -105,23 +112,32 @@ def display_page(pathname):
 # This function will rerun at any 
 @app.callback(
     [Output('classification_table', 'children'), Output('structure', 'children')],
-    [Input('query_text', 'value'), Input('channel', 'value')],
+    [Input('query_text', 'value'), Input('channel', 'value'), Input("mw_filter", "value")],
 )
-def handle_query(query_text, channel):
+def handle_query(query_text, channel, mw_filter):
     # Saving input to a file to be read
     from io import StringIO
     data = StringIO(query_text)
     nmr_data_df = pd.read_csv(data, sep=None)
 
+    # Determing if a molecular weight as entered
+    try:
+        mw_filter = float(mw_filter)
+    except:
+        mw_filter = None
+
     # Drawing image
     output_nmr_image = os.path.join("output", str(uuid.uuid4()) + ".png")
-    top_search_results_df = smart3wrapper.search_smart3(nmr_data_df, output_image=output_nmr_image, channel=int(channel))
+    top_search_results_df = smart3wrapper.search_smart3(nmr_data_df, output_image=output_nmr_image, channel=int(channel), mw_filter=mw_filter)
 
     # Reformatting the results
     results_list = top_search_results_df.to_dict(orient="records")
     for result_dict in results_list:
         all_names_list = [name[:20] for name in result_dict["Name"]]
         result_dict["Name"] = "\n".join(all_names_list)
+
+    if len(results_list) == 0:
+        return ["No Results", [html.Img(src="/plot/{}".format(os.path.basename(output_nmr_image)), width="1200px")]]
 
     top_search_results_df = pd.DataFrame(results_list)
     top_search_results_df['structure'] = top_search_results_df["SMILES"].apply(lambda x: '![SMILES](https://gnps-structure.ucsd.edu/structureimg?smiles={})'.format(urllib.parse.quote(x)))

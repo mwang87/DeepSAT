@@ -9,6 +9,7 @@ services:
       - ./output:/app/output:rw
       - ./logs:/app/logs:rw
       - ./data:/data:rw
+      - ./tmp:/app/tmp:rw
     ports:
     - "4857:5000"
     networks:

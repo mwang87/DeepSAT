@@ -3,11 +3,11 @@ import json
 import requests
 import numpy as np
 import pandas as pd
+import joblib
 
 sys.path.insert(0, "Classifier")
 import SMART_3
 import get_highlight
-
 
 # Loading database into memory
 DB, index_super = SMART_3.load_db(db_folder="./Classifier")
@@ -56,3 +56,9 @@ def predict_fingerprint(nmr_data_df, channel=1):
     fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = SMART_3.refine_predict_nmr([fingerprint_prediction], [pred_MW], [pred_class], [pred_gly])
 
     return nmr_mat, fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly
+
+
+# Caching
+memory = joblib.Memory('tmp/joblibcache', verbose=0)
+cached_predict_fingerprint = memory.cache(predict_fingerprint)
+cached_search_smart3 = memory.cache(search_smart3)

@@ -13,6 +13,21 @@ import get_highlight
 DB, index_super = SMART_3.load_db(db_folder="./Classifier")
 
 def search_smart3(nmr_data_df, output_image=None, channel=1, mw_filter=None):
+    nmr_mat, fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = predict_fingerprint(nmr_data_df, channel=channel)
+
+    experimental_mw = None
+    top_candidates = 10
+    search_mw = pred_MW if mw_filter is None else mw_filter
+
+    topK = None
+    topK = SMART_3.search_database(fingerprint_prediction, search_mw, DB, mw=experimental_mw, top_candidates=top_candidates)
+
+    if output_image is not None:
+        SMART_3._draw_search_image(output_image, nmr_mat, pred_class_index, pred_class_prob, pred_gly, index_super=index_super)
+
+    return topK
+
+def predict_fingerprint(nmr_data_df, channel=1):
     nmr_mat = SMART_3._convert_data(nmr_data_df, channel)
 
     # Running prediction here
@@ -40,14 +55,4 @@ def search_smart3(nmr_data_df, output_image=None, channel=1, mw_filter=None):
 
     fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = SMART_3.refine_predict_nmr([fingerprint_prediction], [pred_MW], [pred_class], [pred_gly])
 
-    experimental_mw = None
-    top_candidates = 10
-    search_mw = pred_MW if mw_filter is None else mw_filter
-
-    topK = None
-    topK = SMART_3.search_database(fingerprint_prediction, search_mw, DB, mw=experimental_mw, top_candidates=top_candidates)
-
-    if output_image is not None:
-        SMART_3._draw_search_image(output_image, nmr_mat, pred_class_index, pred_class_prob, pred_gly, index_super=index_super)
-
-    return topK
+    return nmr_mat, fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly

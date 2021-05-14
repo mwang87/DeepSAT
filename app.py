@@ -43,57 +43,87 @@ NAVBAR = dbc.Navbar(
     sticky="top",
 )
 
-DASHBOARD = [
-    dcc.Location(id='url', refresh=False),
-    dbc.CardHeader(html.H5("SMART NMR 3")),
-    dbc.CardBody(
-        [
-            html.Div(id='version', children="Version - 0.1"),
-            html.Br(),
-            html.H5("NMR Peaks Entry"),
-            dbc.Textarea(className="mb-3", id='query_text', placeholder="NMR Spectrum", rows="20"),
-            html.Br(),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon("Channels", addon_type="prepend"),
-                    dbc.Select(
-                        id="channel",
-                        options=[
-                            {"label": "Normal HSQC", "value": "1"},
-                            {"label": "Edited HSQC", "value": "2"},
-                        ],
-                        value="1"
-                    )
-                ],
-                className="mb-3",
+INPUT_DASHBOARD = [
+    dbc.CardHeader(dbc.Row([
+            dbc.Col(
+                html.H5("Input Data")
             ),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon("Molecular Weight (Optional)", addon_type="prepend"),
-                    dbc.Input(id="mw_filter", placeholder="MW Filter", type="number"),
-                ],
-                className="mb-3",
-            ),
-            html.Hr(),
-            dcc.Loading(
-                id="structure",
-                children=[html.Div([html.Div(id="loading-output-5")])],
-                type="default",
-            ),
-            dcc.Loading(
-                id="classification_table",
-                children=[html.Div([html.Div(id="loading-output-3")])],
-                type="default",
-            )
-        ]
-    )
+    ])),
+    dbc.CardBody([
+        html.Div(id='version', children="Version - 0.1"),
+        html.Br(),
+        html.H5("SMART NMR 3 Peaks Entry"),
+        dbc.Textarea(className="mb-3", id='query_text', placeholder="NMR Spectrum", rows="20"),
+        html.Br(),
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("Channels", addon_type="prepend"),
+                dbc.Select(
+                    id="channel",
+                    options=[
+                        {"label": "Normal HSQC", "value": "1"},
+                        {"label": "Edited HSQC", "value": "2"},
+                    ],
+                    value="1"
+                )
+            ],
+            className="mb-3",
+        ),
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("Molecular Weight (Optional)", addon_type="prepend"),
+                dbc.Input(id="mw_filter", placeholder="MW Filter", type="number"),
+            ],
+            className="mb-3",
+        ),
+    ])
 ]
 
+DRAWING_DASHBOARD = [
+    dbc.CardHeader(dbc.Row([
+            dbc.Col(
+                html.H5("Drawing Results")
+            ),
+    ])),
+    dbc.CardBody([
+        dcc.Loading(
+            id="structure",
+            children=[html.Div([html.Div(id="loading-output-5")])],
+            type="default",
+        ),
+        dcc.Loading(
+            id="classification_table",
+            children=[html.Div([html.Div(id="loading-output-3")])],
+            type="default",
+        )
+    ])
+
+]
+
+
 BODY = dbc.Container(
-    [
-        dbc.Row([dbc.Col(dbc.Card(DASHBOARD)),], style={"marginTop": 30}),
+    [   
+        dcc.Location(id='url', refresh=False),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [dbc.Card(INPUT_DASHBOARD)],
+                    className="col-4",
+                    id="left_panel_col",
+                ),
+                dbc.Col(
+                    [
+                        dbc.Card(DRAWING_DASHBOARD),
+                    ],
+                    className="col-8",
+                    id="right_panel_col",
+                ),
+            ],
+            style={"marginTop": 30},
+        ),
     ],
-    className="mt-12",
+    fluid=True,
+    className="",
 )
 
 app.layout = html.Div(children=[NAVBAR, BODY])
@@ -142,6 +172,8 @@ def handle_query(query_text, channel, mw_filter):
     top_search_results_df = pd.DataFrame(results_list)
     top_search_results_df['structure'] = top_search_results_df["SMILES"].apply(lambda x: '![SMILES](https://gnps-structure.ucsd.edu/structureimg?smiles={})'.format(urllib.parse.quote(x)))
     top_search_results_df = top_search_results_df[["Name", "MW", "Cosine score", "structure"]]
+    top_search_results_df['Cosine score'] = top_search_results_df['Cosine score'].round(decimals=2)
+
 
     table_fig = dash_table.DataTable(
         columns=[
@@ -169,6 +201,8 @@ def handle_query(query_text, channel, mw_filter):
 def download(uuid_save):
     """Serve a file from the upload directory."""
     return send_from_directory("./output", uuid_save)
+
+
 
 @server.route('/api/smart3/search', methods=['POST', 'GET'])
 def apismart3search():

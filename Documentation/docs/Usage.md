@@ -52,7 +52,7 @@ Welcome to use the SMART 3.0 to test your compound(s) @ [SMART 3.0](https://smar
 
 ## Input Data Formatting using MestreNova
 
-Please prepare your NMR peak lists of each compound using Excel or preferably notepad/wordpad. The first row will be left for strings “1H”, “13C”, and "Intensity" (optional) as table head (The order doesn't matter).
+Please prepare your NMR peak lists of each compound using Excel or preferably notepad/wordpad. The first row will be left for strings “1H”, “13C”, and "Intensity" (optional) as table head (The order of header is nothing to do with the analysis results!).
 
 |     13C    |      1H     |  Intensity  |
 |:----------:|:-----------:|:-----------:|

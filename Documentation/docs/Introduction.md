@@ -66,9 +66,7 @@ We officially test on the latest Chrome browser. Other browsers, e.g. Firefox, I
 
 # Acknowledgements
 
-We acknowledge the use of Advanced Chemistry Development, Inc. for use of their HSQC predictor for calculating data in the SMART tool.
-
-We thank Dr. Kikuko Hayamizu for her efforts to create the free open CH-NMR-NP database distributed by JEOL, which was used to train the SMART 3.0.
+We thank Advanced Chemical Design, Inc. for permission to utilize their Spectrus Processor 2017.2.1 software tool to predict HSQC spectra of various natural products. We further thank Dr. Kikuko Hayamizu for permission to utilize tabulated HSQC data for natural products from the CH-NMR-NP database. This work was supported by NIH grant GM107550 to G.W.C and W.H.G. and by the Gordon and Betty Moore Foundation under grant GBMF7622 to G.W.C., P.C.D., and W.H.G. 
 
 We sincerely thank the following people who have done great work to make the idea of web-based SMART become true. You guys are awesome. 
 Names appear in alphabetic order.

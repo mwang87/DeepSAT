@@ -1,9 +1,43 @@
 # Welcome to SMART Documentation
 
-SMART (Small Molecule Accurate Recognition Technology) is the next generation of NMR analysis. 
+SMART 3.0 (Small Molecule Accurate Recognition Technology) is the latest AI-based NMR analysis. 
 
 SMART is a user-friendly, AI-based dereplication and analysis tool that uses 2D NMR data to rapidly associate newly isolated NPs with their known analogues. SMART has been designed to mimic the normal path of experiential learning in that additional 2D NMR spectral inputs can be used to enrich its database and improve its performance. In short, SMART aims to become an experienced associate to natural products researchers as well as other classes of organic chemists.
 
+# How SMART3.0 is working?
+
+![image](https://user-images.githubusercontent.com/51690359/118434765-7804e800-b692-11eb-9cd8-f20cf361728c.png)
+
+Figure 1. Overview of SMART 3.0. In the data construction phase, experimental 1H-13C HSQC data are converted to a constructed 1H-13C HSQC spectrum. In the structure annotation phase, the chemical fingerprints and molecular weights are predicted by SMART 3.0 and compared with structure databases to identify related NPs. In the class annotation phase, the compound class is predicted and provides support to the structure identification and annotation process.
+
+# Overall framework
+
+![image](https://user-images.githubusercontent.com/51690359/118435940-bf8c7380-b694-11eb-9cab-a3d1fe693bed.png)
+
+Figure 2. (A) The multi-task learning architecture of SMART 3.0. In the feature extraction step, the convolutional neural network extracts the features from HSQC spectra. Based on the extracted features, fully connected layers predict chemical fingerprints, molecular weights, and chemical classes. By using the predicted properties, structure annotation is performed. (B) The difference between HSQC and Edited HSQC spectra. On the Edited HSQC spectra, CH2 (methylene) correlations are shown separately from CH3/CH correlations. All of these correlations are binned and reconstructed on the image using 128 by 128 pixels.
+
+
+# The performance of SMART 3.0 from the benchmark.
+
+Testset from 3982 compounds is available on https://github.com/mwang87/SMART_NMR3/tree/master/Test_set
+
+- Prediction performance
+
+![image](https://user-images.githubusercontent.com/51690359/118435109-1bee9380-b693-11eb-92aa-dbf7f6c8483f.png)
+
+Figure 3. Evaluation of the accuracy of SMART 3.0 to predict properties using a test set (n=3,982) not present in the training set. (A) Average (orange line) and median (blue line) of cosine scores between predicted and ground truth fingerprints for HSQC and Edited HSQC data input. (B) Linear regression between measured (x axis) and predicted molecular weights (y axis). (C) Confusion matrix of classification results using SMART 3.0 with HSQC data. (D) Confusion matrix of classification results using SMART 3.0 with Edited HSQC data.
+
+- Structural identification/annotation performance
+
+![image](https://user-images.githubusercontent.com/51690359/118435165-3de81600-b693-11eb-8855-a5fdd48e22f8.png)
+
+Figure 4. Performance evaluation of SMART 3.0 and other available tools with the same test set (n=3,982). Percentage of correctly identified structures (A) and annotated structures (B) found in the top k output of the different tools, for maximum rank k = 1, 2, …, 50. For the measurement of annotation rate, cosine score of 0.8 was set as the threshold.
+
+- Performance in different solvent conditions
+
+![image](https://user-images.githubusercontent.com/51690359/118435208-59532100-b693-11eb-9f48-8b6f9395e9f3.png)
+
+Figure 5. Evaluation of SMART 3.0 analysis in different solvent conditions. (A) Venn diagram of the number of experimental NMR data obtained in chloroform-d¬ and methanol-d4, respectively. (B) Experimental HSQC spectrum of neoline dissolved in chloroform-d¬ (blue) and methanol-d4 (red). (C) Identification (solid) and annotation (dashed) rates in total experimental data. (D) Identification (solid) and annotation (dashed) rates in compounds with NMR data recorded in both solvents.
 
 # Frequently asked Questions
 

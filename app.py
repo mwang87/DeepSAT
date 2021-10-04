@@ -37,7 +37,7 @@ NAVBAR = dbc.Navbar(
         ),
         dbc.Nav(
             [
-                dbc.NavItem(dbc.NavLink("SMART NMR 3", href="#")),
+                dbc.NavItem(dbc.NavLink("DeepSAT", href="#")),
             ],
         navbar=True)
     ],
@@ -67,7 +67,7 @@ INPUT_DASHBOARD = [
     dbc.CardBody([
         html.Div(id='version', children="Version - 0.2"),
         html.Br(),
-        html.H5("SMART NMR 3 Peaks Entry"),
+        html.H5("DeepSAT Peaks Entry"),
         dbc.Textarea(className="mb-3", id='query_text', placeholder="NMR Spectrum", rows="20"),
         html.Br(),
         dbc.InputGroup(

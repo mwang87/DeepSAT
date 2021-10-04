@@ -16,9 +16,9 @@ services:
       - default
       - nginx-net
     environment:
-      VIRTUAL_HOST: smart3.ucsd.edu
+      VIRTUAL_HOST: deepsat.ucsd.edu
       VIRTUAL_PORT: 4857
-      LETSENCRYPT_HOST: smart3.ucsd.edu
+      LETSENCRYPT_HOST: deepsat.ucsd.edu
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
     restart: on-failure
     command: /app/run_server.sh

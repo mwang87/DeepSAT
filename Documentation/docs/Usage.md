@@ -1,9 +1,9 @@
-## User's Guide for SMART 3.0 Analysis
+## User's Guide for DeepSAT Analysis
 
-Welcome to use the SMART 3.0 to test your compound(s) @ [SMART 3.0](https://smart3.ucsd.edu/).
+Welcome to use the DeepSAT to test your compound(s) @ [DeepSAT](https://deepsat.ucsd.edu/).
 
-- The current version of SMART 3.0 as of 05/16/2021 consists of 2D NMR spectra from 144,254 natural products. 
-- One SMART 3.0 analysis should take < 20 seconds.
+- The current version of DeepSAT as of 07/26/2022 consists of 2D NMR spectra from 144,254 natural products. 
+- One SMART DeepSAT analysis should take < 20 seconds.
 - If your results are dissatisfying please try to process your data again manually (go to **How to process a raw HSQC spectrum to a NMR table** and then delete noise and duplicate annotations, add peaks missed by auto-peak picking etc.) 
 
 ## How to process a raw HSQC spectrum to a NMR table with MestreNova (version 12 and newer)
@@ -36,8 +36,8 @@ Welcome to use the SMART 3.0 to test your compound(s) @ [SMART 3.0](https://smar
     - copy all (ctrl+A)
     - click on 'copy peaks' and choose 'copy table'
 
-5. Run SMART Analysis directly
-    - copy and paste the table (ctrl+V) directly to the peak list section of https://smart3.ucsd.edu
+5. Run DeepSAT Analysis directly
+    - copy and paste the table (ctrl+V) directly to the peak list section of https://deepsat.ucsd.edu
     - Important: Apply one backslash to remove the additional space character that is imported with the NMR table'
     - Select experiment type (Normal HSQC or Edited HSQC)
     - (Optional) If you know the molecular weight of your compounds, please enter it.
@@ -46,7 +46,7 @@ Welcome to use the SMART 3.0 to test your compound(s) @ [SMART 3.0](https://smar
 ![image](https://user-images.githubusercontent.com/51690359/118419405-bee1e600-b670-11eb-8d24-fd4170fd08c6.png)
 
     
-**You will get the results from SMART 3.0 Analysis on the right side! :)**
+**You will get the results from DeepSAT Analysis on the right side! :)**
 
 **Please feel free to play around with the processing parameters such as including/excluding noise signals or signals from other minor compounds in case of mixtures or explore the differences of SMART results when referencing your spectra compared to tables without referencing. Overall SMART is designed to be very robust towards any of these changes as its training is not only based on the absolute position of the peaks, but the relative position of each peak towards every other peak (see also References 1 + 2).**
 
@@ -79,7 +79,7 @@ In the NMR table files, wherever there are diastereotopic protons on a methylene
 | 43.2       | 3.12        | -4123.20    |
 | 43.2       | 4.30        | -4123.20    |
 
-### Supported Formats for SMART Analysis
+### Supported Formats for DeepSAT Analysis
 SMART supports comma-seperated values and tap-seperated values for analysis. Your table should appear like this:
 
     for comma-seperated values:
@@ -101,8 +101,8 @@ SMART supports comma-seperated values and tap-seperated values for analysis. You
     7.29	123.4   563
 
 
-### Copy peak lists from Excel files for SMART Analysis
-If you save or prepare your peak lists with Excel files, the data are easily submitted to SMART 3.0 by copy and paste the table. 
+### Copy peak lists from Excel files for DeepSAT Analysis
+If you save or prepare your peak lists with Excel files, the data are easily submitted to DeepSAT by copy and paste the table. 
 
 ![image](https://user-images.githubusercontent.com/51690359/118434521-13e22400-b692-11eb-813e-7a8bc3303e54.png)
 
@@ -126,7 +126,7 @@ When you enter the peak list as tab-separated or comma-separated table make sure
 
 **Results Incorrect**
 
-The SMART 3.0 is much improved than previous version of SMART and other available tools, but will become more and more accurate the more spectra you contribute (see Contribute to SMART).
+The DeepSAT is much improved than previous version of SMART and other available tools, but will become more and more accurate the more spectra you contribute (see Contribute to DeepSAT).
 
 ## Contact
 

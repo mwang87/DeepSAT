@@ -272,6 +272,25 @@ def apismart3search():
 
     return json.dumps(topK.to_dict(orient="records"))
 
+@server.route('/api/smart3/predict', methods=['POST', 'GET'])
+def apismart3predict():
+    nmr_data_df = pd.DataFrame(json.loads(request.values["peaks"]))
+    channel = int(request.values.get("channel", 1))
+
+    nmr_mat, fingerprint_prediction, pred_MW, pred_class_index, pred_class_prob, pred_gly = smart3wrapper.cached_predict_fingerprint(nmr_data_df, channel=channel)
+
+    # This is numpy array, make it json compatible
+    fingerprint_prediction = fingerprint_prediction.tolist()
+
+    # cast all the int64 to int
+    fingerprint_prediction = [int(x) for x in fingerprint_prediction]
+
+    return json.dumps({
+        "fingerprint_prediction": list(fingerprint_prediction),
+        "pred_MW": int(pred_MW),
+    })
+
+
 # This gets you the model metadata
 @server.route("/model/metadata")
 def metadata():

@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+
 from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
-from rdkit.Chem import Draw
-from rdkit.Chem.Draw import IPythonConsole
-from rdkit.Chem import Descriptors
-from rdkit.Chem import AllChem
-from rdkit import DataStructs
+#from rdkit.Chem import Draw
+#from rdkit.Chem.Draw import IPythonConsole
+#from rdkit.Chem import Descriptors
+#from rdkit.Chem import AllChem
+#from rdkit import DataStructs
 from rdkit.Chem.Draw import SimilarityMaps
 
 # This code is for drawing similarity maps based on predicted fingerprints.

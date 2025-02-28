@@ -17,13 +17,13 @@ import datetime
 import os
 import sys
 
-from rdkit import Chem
-from rdkit.Chem import rdMolDescriptors
-from rdkit.Chem import Draw
+#from rdkit import Chem
+#from rdkit.Chem import rdMolDescriptors
+#from rdkit.Chem import Draw
 #from rdkit.Chem.Draw import IPythonConsole
-from rdkit.Chem import Descriptors
-from rdkit.Chem import AllChem
-from rdkit import DataStructs
+#from rdkit.Chem import Descriptors
+#from rdkit.Chem import AllChem
+#from rdkit import DataStructs
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt

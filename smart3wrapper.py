@@ -7,7 +7,7 @@ import joblib
 
 sys.path.insert(0, "Classifier")
 import SMART_3
-import get_highlight
+#import get_highlight
 
 # Loading database into memory
 DB, index_super = SMART_3.load_db(db_folder="./Classifier")

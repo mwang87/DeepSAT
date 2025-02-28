@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import json
 
-SERVER_URL = "http://localhost.ucsd.edu:4857"
+SERVER_URL = "http://localhost:4857"
 
 def test_api():
     url = "{}/api/smart3/search".format(SERVER_URL)
@@ -26,3 +26,28 @@ def test_api2():
     r = requests.post(url, data=data)
     
     r.raise_for_status()
+
+def test_api_fingerprint():
+    
+    url = "{}/api/smart3/predict".format(SERVER_URL)
+
+    print(url)
+    
+
+    # Preparing request
+    peaks_df = pd.read_csv("./swinolide.csv", sep=None)
+    data = {}
+    data["peaks"] = json.dumps(peaks_df.to_dict(orient="records"))
+    r = requests.post(url, data=data)
+    
+    r.raise_for_status()
+
+    print(r.text)
+
+def main():
+    #test_api()
+    #test_api2()
+    test_api_fingerprint()
+
+if __name__ == "__main__":
+    main()
